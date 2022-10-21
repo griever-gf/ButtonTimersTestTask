@@ -121,6 +121,41 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &131776603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131776604}
+  m_Layer: 5
+  m_Name: pointTimerPanelSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &131776604
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131776603}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1315783834}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 152.00002, y: -0.16013}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &328071134
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +386,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1616322411}
   m_HandleRect: {fileID: 1616322410}
   m_Direction: 0
-  m_Value: -0.00017117425
+  m_Value: 1.0000856
   m_Size: 0.99935406
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -684,6 +719,7 @@ RectTransform:
   m_Children:
   - {fileID: 328071137}
   - {fileID: 1658398835}
+  - {fileID: 131776604}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -849,7 +885,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -0.000015136852, y: 0}
+  m_AnchoredPosition: {x: -0.17830384, y: 0}
   m_SizeDelta: {x: 276, y: -0.095214844}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1547511178
@@ -1133,8 +1169,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1703963864}
   - component: {fileID: 1703963865}
+  - component: {fileID: 1703963866}
   m_Layer: 0
-  m_Name: UILogic
+  m_Name: UISystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1166,11 +1203,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e90aaa5c814b2104dbf366f4f14ff178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panelTimerAccessButtons: {fileID: 1658398834}
   prefabTimerAccessButton: {fileID: 352736619752004858, guid: 0a4c368ca1d34614ea8e00624cb08a9d,
     type: 3}
   pointTimerButtonsSpawnStart: {fileID: 1195965824}
   timerButtonsCount: 3
   buttonApperaringDelay: 0.2
+  prefabTimerPanel: {fileID: 7353903144415619497, guid: 9ba2e879ef99ea0488863d31b83acd7c,
+    type: 3}
+  pointTimerPanelSpawn: {fileID: 131776604}
+--- !u!114 &1703963866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703963863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f268b6ec8d0f93847946743506d70b8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2009653465
 GameObject:
   m_ObjectHideFlags: 0
