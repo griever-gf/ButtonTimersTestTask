@@ -9,7 +9,6 @@ public class TimerMenuControls : MonoBehaviour
 
     public GameObject prefabTimerAccessButton;
     public Transform pointTimerButtonsSpawnStart;
-    public int timerButtonsCount = 3; //need to move to Game Data
     public float buttonApperaringDelay = 0.2f;
     GameObject[] buttonsTimerAccess;
     int indexCurrentStartAnimationButton;
@@ -20,15 +19,16 @@ public class TimerMenuControls : MonoBehaviour
 
     void Start()
     {
-        GameData.instance.SpawnTimers(timerButtonsCount);
-        buttonsTimerAccess = new GameObject[timerButtonsCount];
+        GameData.instance.SpawnTimers(GameData.instance.timersCount);
+        buttonsTimerAccess = new GameObject[GameData.instance.timersCount];
         Vector3 pos;
-        for (int i=0; i < timerButtonsCount; i++)
+        for (int i=0; i < GameData.instance.timersCount; i++)
         {
             pos = pointTimerButtonsSpawnStart.position + new Vector3(0, -15* i);
             buttonsTimerAccess[i] = Instantiate(prefabTimerAccessButton, pos, Quaternion.identity, pointTimerButtonsSpawnStart);
-            buttonsTimerAccess[i].GetComponentInChildren<TimerAccessButton>().SetTimerNumberText(i+1);
-            buttonsTimerAccess[i].GetComponentInChildren<Button>().onClick.AddListener(OnTimerAccessButtonPress);
+            buttonsTimerAccess[i].GetComponentInChildren<TimerAccessButton>().SetButtonValue(i);
+            int local_i = i;
+            buttonsTimerAccess[i].GetComponentInChildren<Button>().onClick.AddListener(() => OnTimerAccessButtonPress(local_i));
         }
         ShowAllTimerButtons();
     }
@@ -66,8 +66,9 @@ public class TimerMenuControls : MonoBehaviour
         StartCoroutine(StartTimerAccessButtonAppearingAnimation(buttonsTimerAccess[indexCurrentStartAnimationButton].GetComponent<Animator>()));
     }
 
-    void OnTimerAccessButtonPress()
+    void OnTimerAccessButtonPress(int button_value)
     {
+        GameData.instance.SetCurrentTimer(button_value);
         HideAllTimerButtons();
         panelCurrentTimer = Instantiate(prefabTimerPanel, pointTimerPanelSpawn.position, Quaternion.identity, pointTimerPanelSpawn);
         panelCurrentTimer.GetComponent<TimerPanelControls>().SetTimerSelectionPanelLink(this);

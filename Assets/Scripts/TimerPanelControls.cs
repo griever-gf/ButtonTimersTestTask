@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,13 @@ public class TimerPanelControls : MonoBehaviour
     public Text timerText;
     Animator animatorTimerPanel;
     TimerMenuControls timerSelectionMenuControls;
+
+    void ShowTimerValue()
+    {
+        double t_val = GameData.instance.GetCurrentTimerValue();
+        TimeSpan ts = TimeSpan.FromSeconds(t_val);
+        timerText.text = ts.Minutes.ToString("00") + ":" + ts.Seconds.ToString("00") + ":" + ts.Milliseconds.ToString("000");
+    }
 
     public void SetTimerSelectionPanelLink(TimerMenuControls menu_controls)
     {
@@ -28,17 +36,19 @@ public class TimerPanelControls : MonoBehaviour
     {
         animatorTimerPanel = gameObject.GetComponent<Animator>();
         ShowPanel();
-    }
-
-    public void OnStartButtonPress()
-    {
-        //сначал запустить таймер, а затем...
-        timerSelectionMenuControls.ShowAllTimerButtons();
-        HidePanel();
+        ShowTimerValue();
     }
 
     void Update()
     {
-        
+        ShowTimerValue();
+    }
+
+    //when "Timer Start" button is pressed
+    public void OnStartButtonPress()
+    {
+        GameData.instance.StartCurrentTimer();
+        timerSelectionMenuControls.ShowAllTimerButtons();
+        HidePanel();
     }
 }

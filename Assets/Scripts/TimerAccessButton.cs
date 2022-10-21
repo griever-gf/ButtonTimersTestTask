@@ -6,8 +6,21 @@ using UnityEngine.UI;
 public class TimerAccessButton : MonoBehaviour
 {
     public Text buttonText;
-    public void SetTimerNumberText(int button_number)
+    int buttonValue;
+
+    public void SetButtonValue(int val)
     {
-        buttonText.text = "Timer #" + button_number.ToString("00");
+        buttonValue = val;
+        SetTimerNumberText();
+    }
+
+    void SetTimerNumberText()
+    {
+        buttonText.text = "Timer #" + (buttonValue+1).ToString("00");
+    }
+
+    public int GetButtonValue()
+    {
+        return buttonValue;
     }
 }
