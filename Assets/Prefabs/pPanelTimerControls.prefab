@@ -156,7 +156,8 @@ GameObject:
   - component: {fileID: 632492107}
   - component: {fileID: 632492106}
   - component: {fileID: 632492105}
-  - component: {fileID: 632492104}
+  - component: {fileID: 2044192630071227374}
+  - component: {fileID: 693804739}
   m_Layer: 5
   m_Name: ButtonTimerIncrease
   m_TagString: Untagged
@@ -264,7 +265,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &632492104
+--- !u!114 &2044192630071227374
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -273,10 +274,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 632492102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c050386367924b74f8512a6d9a0815d0, type: 3}
+  m_Script: {fileID: 11500000, guid: a779ae1e92e2f7040b46cd695ed7227a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonText: {fileID: 1080215644}
+--- !u!114 &693804739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632492102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86d1c53942be28c43980b92350f2d619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPressed: 0
 --- !u!1 &686258869
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +302,8 @@ GameObject:
   - component: {fileID: 686258874}
   - component: {fileID: 686258873}
   - component: {fileID: 686258872}
-  - component: {fileID: 686258871}
+  - component: {fileID: 859300775}
+  - component: {fileID: 859300776}
   m_Layer: 5
   m_Name: ButtonTimerDecrease
   m_TagString: Untagged
@@ -397,7 +411,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &686258871
+--- !u!114 &859300775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -406,10 +420,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 686258869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c050386367924b74f8512a6d9a0815d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 86d1c53942be28c43980b92350f2d619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonText: {fileID: 2140692700}
+  buttonPressed: 0
+--- !u!114 &859300776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686258869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc66e309bba0f214bb34d8ff265721eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &736656181
 GameObject:
   m_ObjectHideFlags: 0

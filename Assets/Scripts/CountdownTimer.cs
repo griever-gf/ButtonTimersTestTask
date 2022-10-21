@@ -19,7 +19,7 @@
         return currentTime;
     }
 
-    public void UpdateTime(float delta)
+    public void DecreaseTime(float delta)
     {
         if (currentTime > 0)
             currentTime -= delta;
@@ -28,5 +28,10 @@
             enabled = false;
             currentTime = 0;
         }
+    }
+
+    public void IncreaseTime(float delta)
+    {
+        currentTime += delta;
     }
 }

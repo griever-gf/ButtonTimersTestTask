@@ -65,9 +65,19 @@ public class GameData : MonoBehaviour
         timers[currentTimerIndex].enabled = false;
     }
 
-    public void UpdateCurrentTimerValue(float delta)
+    public void DecreaseCurrentTimerValue(float delta)
     {
-        timers[currentTimerIndex].UpdateTime(delta);
+        timers[currentTimerIndex].DecreaseTime(delta);
+    }
+
+    public void IncreaseCurrentTimerValue(float val)
+    {
+        timers[currentTimerIndex].IncreaseTime(val);
+    }
+
+    public bool GetCurrentTimerState()
+    {
+        return timers[currentTimerIndex].enabled;
     }
 
     void Update()
@@ -75,7 +85,7 @@ public class GameData : MonoBehaviour
         for (int i = 0; i < timersCount; i++)
         {
             if (timers[i].enabled)
-                timers[i].UpdateTime(Time.deltaTime);
+                timers[i].DecreaseTime(Time.deltaTime);
         }
     }
 }
