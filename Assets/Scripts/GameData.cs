@@ -23,7 +23,11 @@ public class GameData : MonoBehaviour
 
     private void Initialization()
     {
+        int timers_count = GameDataSaver.LoadTimerCount();
+        if (timers_count > 0)
+            timersCount = timers_count;
         timers = new List<CountdownTimer>();
+        previousSessionTimerValues = GameDataSaver.LoadTimerValues();
     }
 
     List<CountdownTimer> timers;
@@ -34,9 +38,11 @@ public class GameData : MonoBehaviour
     public UnityEvent eventAnyTimerFinished;
     int finishedTimerIndex;
 
-    public void AddTimer(int idx)
+    double[] previousSessionTimerValues;
+
+    public void AddTimer(int idx, bool is_on_app_start)
     {
-        timers.Add(new CountdownTimer(DetermineTimerStartValue(idx)));
+        timers.Add(new CountdownTimer(DetermineTimerStartValue(idx, is_on_app_start)));
         timers[idx].eventTimerFinished.AddListener(() => OnAnyTimerFinished(idx));
     }
 
@@ -45,15 +51,31 @@ public class GameData : MonoBehaviour
         timers.RemoveAt(idx);
     }
 
-    double DetermineTimerStartValue(int timer_idx)
+    double DetermineTimerStartValue(int timer_idx, bool is_on_app_start)
     {
-        if (true) //if there is not stored value in file/PlayerPrefs
+        if (!is_on_app_start)
             return timerDefaultValue;
+        else
+        {
+            if (previousSessionTimerValues == null) //if there is not stored value in file/PlayerPrefs
+            {
+                return timerDefaultValue;
+            }
+            else
+            {
+                return previousSessionTimerValues[timer_idx];
+            }
+        }
+    }
+
+    public double GetTimerValue(int idx)
+    {
+        return timers[idx].GetTime();
     }
 
     public double GetCurrentTimerValue()
     {
-        return timers[currentTimerIndex].GetTime();
+        return GetTimerValue(currentTimerIndex);
     }
 
     public void SetCurrentTimer(int idx)
@@ -71,6 +93,12 @@ public class GameData : MonoBehaviour
         timers[currentTimerIndex].enabled = false;
     }
 
+    public void StopAllTimers()
+    {
+        foreach (CountdownTimer cdt in timers)
+            cdt.enabled = false;
+    }
+
     public void DecreaseCurrentTimerValue(float delta)
     {
         timers[currentTimerIndex].DecreaseTime(delta);
@@ -81,9 +109,14 @@ public class GameData : MonoBehaviour
         timers[currentTimerIndex].IncreaseTime(val);
     }
 
+    public bool GetTimerState(int idx)
+    {
+        return timers[idx].enabled;
+    }
+
     public bool GetCurrentTimerState()
     {
-        return timers[currentTimerIndex].enabled;
+        return GetTimerState(currentTimerIndex);
     }
 
     public int GetCurrentTimerIndex()

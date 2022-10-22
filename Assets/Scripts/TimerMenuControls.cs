@@ -24,13 +24,13 @@ public class TimerMenuControls : MonoBehaviour
     {
         buttonsTimerAccess = new List<GameObject>();
         for (int i=0; i < GameData.instance.timersCount; i++)
-            SpawnTimer(i);
+            SpawnTimer(i, true);
         ShowAllTimerButtons();
     }
     
-    void SpawnTimer(int idx)
+    void SpawnTimer(int idx, bool is_on_app_start)
     {
-        GameData.instance.AddTimer(idx);
+        GameData.instance.AddTimer(idx, is_on_app_start);
         Vector3 pos = pointTimerButtonsSpawnStart.position + new Vector3(0, -15 * idx);
         buttonsTimerAccess.Add(Instantiate(prefabTimerAccessButton, pos, Quaternion.identity, pointTimerButtonsSpawnStart));
         buttonsTimerAccess[idx].GetComponentInChildren<TimerAccessButton>().UpdateButtonName(idx);
@@ -102,15 +102,18 @@ public class TimerMenuControls : MonoBehaviour
     {
         GameData.instance.timersCount++;
         int current_idx = GameData.instance.timersCount - 1;
-        SpawnTimer(current_idx);
+        SpawnTimer(current_idx, false);
         StartCoroutine(StartTimerAccessButtonAppearingAnimation(buttonsTimerAccess[current_idx].GetComponent<Animator>()));
     }
 
     public void RemoveLastTimerButton()
     {
         int current_idx = GameData.instance.timersCount - 1;
-        DestroyTimer(current_idx);
-        GameData.instance.timersCount--;
+        if (current_idx > 0)
+        {
+            DestroyTimer(current_idx);
+            GameData.instance.timersCount--;
+        }
     }
 
     void Update()
