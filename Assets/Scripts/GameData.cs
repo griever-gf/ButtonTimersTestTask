@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameData : MonoBehaviour
 {
@@ -27,8 +28,11 @@ public class GameData : MonoBehaviour
 
     List<CountdownTimer> timers;
     int currentTimerIndex;
-    double timerDefaultValue = 60;
+    public double timerDefaultValue = 20; //in seconds, if there is not stored value for this timer
     public int timersCount = 3;
+
+    public UnityEvent eventAnyTimerFinished;
+    int finishedTimerIndex;
 
     public void SpawnTimers(int amount)
     {
@@ -36,12 +40,14 @@ public class GameData : MonoBehaviour
         for (int i=0; i< timersCount; i++)
         {
             timers.Add(new CountdownTimer(DetermineTimerStartValue(i)));
+            int local_i = i;
+            timers[i].eventTimerFinished.AddListener(() => OnAnyTimerFinished(local_i));
         }
     }
 
     double DetermineTimerStartValue(int timer_idx)
     {
-        if (true) //if no saved value in file/PlayerPrefs
+        if (true) //if there is not stored value in file/PlayerPrefs
             return timerDefaultValue;
     }
 
@@ -78,6 +84,23 @@ public class GameData : MonoBehaviour
     public bool GetCurrentTimerState()
     {
         return timers[currentTimerIndex].enabled;
+    }
+
+    public int GetCurrentTimerIndex()
+    {
+        return currentTimerIndex;
+    }
+
+    public void OnAnyTimerFinished(int idx_timer)
+    {
+        //Debug.Log("Timer #" + idx_timer.ToString() + " finished");
+        finishedTimerIndex = idx_timer;
+        eventAnyTimerFinished.Invoke();
+    }
+
+    public int GetFinishedTimerIndex()
+    {
+        return finishedTimerIndex;
     }
 
     void Update()

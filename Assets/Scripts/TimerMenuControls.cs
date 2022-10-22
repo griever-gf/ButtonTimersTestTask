@@ -26,11 +26,12 @@ public class TimerMenuControls : MonoBehaviour
         {
             pos = pointTimerButtonsSpawnStart.position + new Vector3(0, -15* i);
             buttonsTimerAccess[i] = Instantiate(prefabTimerAccessButton, pos, Quaternion.identity, pointTimerButtonsSpawnStart);
-            buttonsTimerAccess[i].GetComponentInChildren<TimerAccessButton>().SetButtonValue(i);
+            buttonsTimerAccess[i].GetComponentInChildren<TimerAccessButton>().UpdateButtonName(i);
             int local_i = i;
             buttonsTimerAccess[i].GetComponentInChildren<Button>().onClick.AddListener(() => OnTimerAccessButtonPress(local_i));
         }
         ShowAllTimerButtons();
+        GameData.instance.eventAnyTimerFinished.AddListener(() => SetFinishedColorToTimerButton());
     }
 
     IEnumerator StartTimerAccessButtonAppearingAnimation(Animator animator)
@@ -72,6 +73,19 @@ public class TimerMenuControls : MonoBehaviour
         HideAllTimerButtons();
         panelCurrentTimer = Instantiate(prefabTimerPanel, pointTimerPanelSpawn.position, Quaternion.identity, pointTimerPanelSpawn);
         panelCurrentTimer.GetComponent<TimerPanelControls>().SetTimerSelectionPanelLink(this);
+    }
+
+    void SetFinishedColorToTimerButton()
+    {
+        //Debug.Log("SetFinishedColorToTimerButton");
+        int btn_idx = GameData.instance.GetFinishedTimerIndex();
+        //Debug.Log(btn_idx);
+        buttonsTimerAccess[btn_idx].GetComponentInChildren<TimerAccessButton>().SetButtonViewTimerComplete();
+    }
+
+    public void SetDefaultColorToCurrentTimerButton()
+    {
+        buttonsTimerAccess[GameData.instance.GetCurrentTimerIndex()].GetComponentInChildren<TimerAccessButton>().SetButtonViewTimerDefault();
     }
 
     void Update()

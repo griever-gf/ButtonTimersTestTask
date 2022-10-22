@@ -48,6 +48,7 @@ public class TimerPanelControls : MonoBehaviour
     public void OnStartButtonPress()
     {
         GameData.instance.StartCurrentTimer();
+        timerSelectionMenuControls.SetDefaultColorToCurrentTimerButton();
         timerSelectionMenuControls.ShowAllTimerButtons();
         HidePanel();
     }

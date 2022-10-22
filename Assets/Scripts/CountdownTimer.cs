@@ -1,7 +1,11 @@
-﻿public class CountdownTimer
+﻿using UnityEngine;
+using UnityEngine.Events;
+
+public class CountdownTimer
 {
     public bool enabled { get; set; }
     double currentTime;
+    public UnityEvent eventTimerFinished = new UnityEvent();
 
     public CountdownTimer(double value)
     {
@@ -27,6 +31,7 @@
         {
             enabled = false;
             currentTime = 0;
+            eventTimerFinished.Invoke();
         }
     }
 
