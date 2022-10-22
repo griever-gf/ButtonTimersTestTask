@@ -23,7 +23,7 @@ public class GameData : MonoBehaviour
 
     private void Initialization()
     {
-
+        timers = new List<CountdownTimer>();
     }
 
     List<CountdownTimer> timers;
@@ -34,15 +34,15 @@ public class GameData : MonoBehaviour
     public UnityEvent eventAnyTimerFinished;
     int finishedTimerIndex;
 
-    public void SpawnTimers(int amount)
+    public void AddTimer(int idx)
     {
-        timers = new List<CountdownTimer>();
-        for (int i=0; i< timersCount; i++)
-        {
-            timers.Add(new CountdownTimer(DetermineTimerStartValue(i)));
-            int local_i = i;
-            timers[i].eventTimerFinished.AddListener(() => OnAnyTimerFinished(local_i));
-        }
+        timers.Add(new CountdownTimer(DetermineTimerStartValue(idx)));
+        timers[idx].eventTimerFinished.AddListener(() => OnAnyTimerFinished(idx));
+    }
+
+    public void RemoveTimer(int idx)
+    {
+        timers.RemoveAt(idx);
     }
 
     double DetermineTimerStartValue(int timer_idx)
