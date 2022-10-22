@@ -4,8 +4,10 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-public class IncreaseTimerValueButton : MonoBehaviour
+public class UpdateTimerValueButton : MonoBehaviour
 {
+    public bool isIncreaseButton; //otherwise is Decrease button
+
     bool isHoldStarted;
     bool previousTimerState;
     float timeButtonPressed;
@@ -29,7 +31,13 @@ public class IncreaseTimerValueButton : MonoBehaviour
                 GameData.instance.StopCurrentTimer();
             }
             timeButtonPressed += Time.deltaTime;
-            GameData.instance.IncreaseCurrentTimerValue(SmoothAccelerator.GetIncreasedValueOverTime(timeButtonPressed));
+
+            //float tmp = SmoothAccelerator.GetIncreasedValueOverTime(timeButtonPressed);
+            //Debug.Log("seconds: " + timeButtonPressed.ToString() + " value: " +  tmp.ToString());
+            if (isIncreaseButton)
+                GameData.instance.IncreaseCurrentTimerValue(SmoothAccelerator.GetIncreasedValueOverTime(timeButtonPressed));
+            else
+                GameData.instance.DecreaseCurrentTimerValue(SmoothAccelerator.GetIncreasedValueOverTime(timeButtonPressed));
         }
         else if (isHoldStarted)
         {
